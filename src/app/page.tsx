@@ -9,7 +9,7 @@ export default function Home() {
     Array.from({ length: 9 }, () => Array(9).fill(0))
   );
   const [solution, setSolution] = useState<Grid>(
-    Array.from({ length: 9 }, () => Array(9).fill(0))
+    Array.from({ length: 9 }, () => Array(9).fill(1))
   );
   const [userGrid, setUserGrid] = useState<Grid>(
     Array.from({ length: 9 }, () => Array(9).fill(0))
@@ -23,6 +23,7 @@ export default function Home() {
     }
     return grid;
   };
+
   useEffect(() => {
     const fetchGrid = async () => {
       try {
@@ -32,10 +33,9 @@ export default function Home() {
 
         const questionGrid = parseStringToGrid(data.question);
         const solutionGrid = parseStringToGrid(data.solution);
-        console.log(data.question);
         setQuestion(questionGrid);
         setSolution(solutionGrid);
-        setUserGrid(questionGrid); // start from the given puzzle
+        setUserGrid(questionGrid); // Start from the given puzzle
       } catch (error) {
         console.error("Error fetching Sudoku grid:", error);
       }
@@ -90,35 +90,34 @@ export default function Home() {
   };
 
   return (
-    <main className="p-6 min-h-screen bg-lime-400 flex flex-col items-center">
-      <h1 className="text-4xl font-bold mb-6 text-white drop-shadow-lg">
+    <main className="h-screen w-full bg-lime-400 flex flex-col items-center justify-center p-4">
+      <h1 className="text-4xl font-bold mb-6 text-white drop-shadow-lg text-center">
         Sudoku Grid
       </h1>
 
-      <div className="grid grid-cols-9 gap-[2px] w-max border border-black bg-black shadow-2xl rounded-lg p-2">
+      <div className="grid grid-cols-9 gap-[2px] w-full max-w-screen-md bg-black border border-black shadow-xl rounded-lg">
         {userGrid.map((row, rowIndex) => row.map((cell, colIndex) => (
-            <div
-              key={`${rowIndex}-${colIndex}`}
-              className={`w-16 h-16 text-2xl border border-gray-300 flex items-center justify-center rounded-lg ${getCellStyle(
-                rowIndex,
-                colIndex
-              )}`}
-            >
-              {question[rowIndex][colIndex] !== 0 ? (
-                question[rowIndex][colIndex]
-              ) : (
-                <input
-                  type="text"
-                  inputMode="numeric"
-                  maxLength={1}
-                  className="w-full h-full text-center outline-none bg-transparent"
-                  value={userGrid[rowIndex][colIndex] || ""}
-                  onChange={(e) => handleChange(e.target.value, rowIndex, colIndex)}
-                />
-              )}
-            </div>
-          ))
-        )}
+          <div
+            key={`${rowIndex}-${colIndex}`}
+            className={`w-full aspect-square flex items-center justify-center rounded-md ${getCellStyle(
+              rowIndex,
+              colIndex
+            )}`}
+          >
+            {question[rowIndex][colIndex] !== 0 ? (
+              question[rowIndex][colIndex]
+            ) : (
+              <input
+                type="text"
+                inputMode="numeric"
+                maxLength={1}
+                className="w-full h-full text-center outline-none bg-transparent"
+                value={userGrid[rowIndex][colIndex] || ""}
+                onChange={(e) => handleChange(e.target.value, rowIndex, colIndex)}
+              />
+            )}
+          </div>
+        )))}
       </div>
 
       <button
