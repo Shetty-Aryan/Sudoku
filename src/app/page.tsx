@@ -32,9 +32,9 @@ export default function Home() {
 
         const questionGrid = parseStringToGrid(data.question);
         const solutionGrid = parseStringToGrid(data.solution);
-        console.log(data.question)
+        console.log(data.question);
         setQuestion(questionGrid);
-        setSolution(solutionGrid); 
+        setSolution(solutionGrid);
         setUserGrid(questionGrid); // start from the given puzzle
       } catch (error) {
         console.error("Error fetching Sudoku grid:", error);
@@ -90,14 +90,16 @@ export default function Home() {
   };
 
   return (
-    <main className="p-6 min-h-screen bg-gray-100 flex flex-col items-center">
-      <h1 className="text-2xl font-bold mb-4">Sudoku Grid</h1>
+    <main className="p-6 min-h-screen bg-lime-400 flex flex-col items-center">
+      <h1 className="text-4xl font-bold mb-6 text-white drop-shadow-lg">
+        Sudoku Grid
+      </h1>
 
-      <div className="grid grid-cols-9 gap-[2px] w-max border border-black bg-black">
+      <div className="grid grid-cols-9 gap-[2px] w-max border border-black bg-black shadow-2xl rounded-lg p-2">
         {userGrid.map((row, rowIndex) => row.map((cell, colIndex) => (
             <div
               key={`${rowIndex}-${colIndex}`}
-              className={`w-20 h-20 text-2xl border border-gray-300 flex items-center justify-center ${getCellStyle(
+              className={`w-16 h-16 text-2xl border border-gray-300 flex items-center justify-center rounded-lg ${getCellStyle(
                 rowIndex,
                 colIndex
               )}`}
@@ -121,7 +123,7 @@ export default function Home() {
 
       <button
         onClick={resetWrongAnswers}
-        className="mt-6 px-4 py-2 bg-blue-600 text-white rounded shadow hover:bg-blue-700"
+        className="mt-6 px-6 py-3 bg-blue-600 text-white rounded-lg shadow-lg hover:bg-blue-700 hover:scale-105 transition-transform"
       >
         Reset Wrong Answers
       </button>
