@@ -9,7 +9,7 @@ export default function Home() {
     Array.from({ length: 9 }, () => Array(9).fill(0))
   );
   const [solution, setSolution] = useState<Grid>(
-    Array.from({ length: 9 }, () => Array(9).fill(1))
+    Array.from({ length: 9 }, () => Array(9).fill(0))
   );
   const [userGrid, setUserGrid] = useState<Grid>(
     Array.from({ length: 9 }, () => Array(9).fill(0))
