@@ -5,7 +5,6 @@ const client = new MongoClient(uri);
 const dbName = "sudoku";
 
 export async function getRandomPuzzle() {
-  console.log(uri);
   await client.connect();
   const db = client.db(dbName);
   const collection = db.collection("puzzles");
